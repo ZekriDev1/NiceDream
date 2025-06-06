@@ -3,15 +3,17 @@ import moment from "moment";
 import simpleGit from "simple-git";
 
 const path = "./data.json";
-const date = moment().format();
+const date = moment().subtract(1, 'd').format();
 
 const data = {
     date: date,
 };
 
-Jsonfile.writeFile(path, data);
+Jsonfile.writeFile(path, data, ()=>{
+    simpleGit().add([path]).commit(date, {'--date' :date }).push();
+});
 
-simpleGit().add([path]).commit(date, {'--date' :date }).push();
+// simpleGit().add([path]).commit(date, {'--date' :date }).push();
 
 
 
